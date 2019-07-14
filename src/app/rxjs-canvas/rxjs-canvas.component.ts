@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { fromEvent } from 'rxjs';
-
+import { fromEvent, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 interface Area {
   active: boolean;
   pointCollection: DragPoint[];
@@ -11,12 +11,14 @@ interface DragPoint {
   y: number;
   radius: number;
 }
+
 @Component({
-  selector: 'app-base-canvas',
-  templateUrl: './base-canvas.component.html',
-  styleUrls: ['./base-canvas.component.css']
+  selector: 'app-rxjs-canvas',
+  templateUrl: './rxjs-canvas.component.html',
+  styleUrls: ['./rxjs-canvas.component.css']
 })
-export class BaseCanvasComponent implements OnInit, AfterViewInit {
+export class RxjsCanvasComponent implements OnInit {
+
   @ViewChild('customCanvas')
   customCanvas: ElementRef;
   context: CanvasRenderingContext2D;
@@ -24,16 +26,38 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
   dragIndex = -1;
   areaArray: Area[] = [];
   currentArea: Area;
+
+  mousedownObs: Observable<MouseEvent>;
+  mousemoveObs: Observable<MouseEvent>;
+  mouseupObs: Observable<MouseEvent>;
+  rightClickObs: Observable<MouseEvent>;
   constructor() { }
 
   ngOnInit() {
-    this.context = (<HTMLCanvasElement>this.customCanvas.nativeElement).getContext('2d');
-    this.addNewArea();
+    const canvasElement = this.customCanvas.nativeElement;
+    this.context = (<HTMLCanvasElement>canvasElement).getContext('2d');
+    this.formatMousedownObs(canvasElement);
+    this.mousedownObs.subscribe(res => {
+      console.log('mouse down obs...', res);
+    })
+  }
 
+  formatObservables() {
+    const canvasElement = this.customCanvas.nativeElement;
+    this.mousedownObs = fromEvent(canvasElement, 'mousedown');
+    this.mouseupObs = fromEvent(canvasElement, 'mouseup');
+    this.mousemoveObs = fromEvent(canvasElement, 'mousemove');
+  }
+
+  formatMousedownObs(canvasElement: any) {
+    this.mousedownObs = fromEvent(canvasElement, 'mousedown').pipe(
+      filter((e: MouseEvent) => e.button !== 2)
+    )
   }
 
   ngAfterViewInit() {
-
+    this.context = (<HTMLCanvasElement>this.customCanvas.nativeElement).getContext('2d');
+    this.addNewArea();
     // fromEvent(this.customCanvas.nativeElement, 'click').subscribe(res => {
     //   console.log('res....', res);
     // });
