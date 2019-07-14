@@ -21,6 +21,7 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
   }
 
   onMouseDown(event: MouseEvent) {
+    console.log('mosedown invoked...', event);
     const x = event.offsetX;
     const y = event.offsetY;
 
@@ -28,9 +29,10 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
     this.drawPath(this.pointArray);
   }
 
-  onmouseMove(event: MouseEvent) {
-    console.log('mouse move event...', event);
+  onMouseMove(event: MouseEvent) {
+    console.log('mouse move invoked...', event);
   }
+
 
   drawPoint(p: { x: number, y: number }) {
 
@@ -39,6 +41,7 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
   }
 
   drawPath(points: Array<{ x: number; y: number }>) {
+    console.log('points..', points);
     this.context.canvas.width = this.context.canvas.width;
     this.context.globalCompositeOperation = 'destination-over';
     this.context.fillStyle = 'rgb(255,255,255)';

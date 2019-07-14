@@ -1,9 +1,6 @@
 <canvas #customCanvas width="600"
   style="background: url('http://192.168.1.38:80/zm/cgi-bin/nph-zms?width=800px&height=480px&mode=jpeg&maxfps=30&monitor=1&connkey=35204&rand=1562469210') 0% 0% / contain;"
-  height="400" 
-  (onmousedown)='onMouseDown($event)'
-  (onmousemove)="onmouseMove($event)"
-  ></canvas>
+  height="400" (mousedown)='onMouseDown($event)' (mousemove)='onMouseMove($event)'></canvas>
 
 <!-- <div class="row">
   <div class="span6">
