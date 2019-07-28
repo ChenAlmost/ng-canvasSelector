@@ -1,0 +1,63 @@
+<h4>手术信息</h4>
+<div>
+  <nz-table #nestedTable [nzShowPagination]="false" [nzData]="listOfParentData" [nzPageSize]="10">
+    <thead>
+      <tr>
+        <th>类型</th>
+        <th nzShowCheckbox></th>
+        <th>状态</th>
+        <th>手术及操作名称</th>
+        <th>依据</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="nestedTable.data" let-i="index">
+        <tr>
+          <td *ngIf="i===0" [attr.rowspan]="nestedTable.data.length*2">手术及操作</td>
+          <td rowspan="2" nzShowCheckbox></td>
+          <td rowspan="2">{{ data.version }}</td>
+          <td>{{ data.upgradeNum }}</td>
+          <td>{{ data.creator }}</td>
+        </tr>
+        <tr>
+          <td class="sub-table-wrapper" colspan="2">
+            <div class="sub-table">
+              <div class='sub-table-content'>
+                <span>手术日期</span>
+                <span>2019-02-19</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>手术级别</span>
+                <span>二级</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>术者</span>
+                <span>张三</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>一助</span>
+                <span>李四</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>二助</span>
+                <span>赵五</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>切口愈合等级</span>
+                <span>一级</span>
+              </div>
+              <div class='sub-table-content'>
+                <span>麻醉方式</span>
+                <span>全麻</span>
+              </div>
+            </div>
+  
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+  <div>
+    
+  </div>
+</div>
