@@ -52,7 +52,7 @@ export class RxjsCanvasComponent implements OnInit {
   formatMousedownObs(canvasElement: any) {
     this.mousedownObs = fromEvent(canvasElement, 'mousedown').pipe(
       filter((e: MouseEvent) => e.button !== 2)
-    )
+    );
   }
 
   ngAfterViewInit() {

@@ -1,0 +1,38 @@
+thead {
+  tr {
+    background-color: white;
+  }
+}
+
+
+.sub-table-wrapper {
+  background-color: #f7efd7;
+
+  .sub-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+
+
+.sub-table-content {
+  display: flex;
+  flex-direction: column;
+}
+
+tr td {
+  border-right: 1px solid #e8e8e8;
+}
+
+tr:hover {
+  td:not(.sub-table-wrapper) {
+    background-color: white;
+  }
+
+  td.sub-table-wrapper {
+    background-color: #f7efd7;
+
+  }
+}

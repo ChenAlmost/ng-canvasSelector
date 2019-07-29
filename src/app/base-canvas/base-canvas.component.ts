@@ -28,18 +28,43 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.context = (<HTMLCanvasElement>this.customCanvas.nativeElement).getContext('2d');
+    this.setDefaultArea();
     this.addNewArea();
-    
   }
 
   ngAfterViewInit() {
-  
-    // fromEvent(this.customCanvas.nativeElement, 'click').subscribe(res => {
-    //   console.log('res....', res);
-    // });
+  }
+
+  setDefaultArea() {
+    const area1 = {
+      active: false,
+      pointCollection: [
+        { x: 115, y: 115, radius: 4 },
+        { x: 331, y: 171, radius: 4 },
+        { x: 228, y: 294, radius: 4 }
+      ]
+    };
+    const area2 = {
+      active: false,
+      pointCollection: [
+        { x: 447, y: 158, radius: 4 },
+        { x: 564, y: 129, radius: 4 },
+        { x: 554, y: 333, radius: 4 }
+      ]
+    };
+    const area3 = {
+      active: false,
+      pointCollection: [
+        { x: 687, y: 134, radius: 4 },
+        { x: 770, y: 134, radius: 4 },
+        { x: 606, y: 435, radius: 4 }
+      ]
+    };
+    this.areaArray = [area1, area2, area3];
   }
 
   onMouseDown(event: MouseEvent) {
+    console.log('mouse down event....', event);
     if (event.button === 2) {
       return;
     }
@@ -70,7 +95,7 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
     if (this.isDragging) {
       const x = event.offsetX;
       const y = event.offsetY;
-      const radius = this.currentArea.pointCollection[this.dragIndex].radius
+      const radius = this.currentArea.pointCollection[this.dragIndex].radius;
       const minX = radius;
       const maxX = (<HTMLCanvasElement>this.customCanvas.nativeElement).width - radius;
       const minY = radius;
@@ -128,7 +153,7 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
     this.context.fillStyle = 'rgba(255,0,0,0.3)';
     this.context.fill();
     this.context.stroke();
-  };
+  }
 
   drawPoint(points: DragPoint[]) {
     points.forEach(p => {
@@ -161,6 +186,22 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
     this.areaArray.push(tempArea);
     this.currentArea = tempArea;
     this.reDraw();
+  }
+
+  removeCurrent() {
+    const activeAreaIndex = this.areaArray.findIndex(a => a.active === true);
+    if (activeAreaIndex !== -1) {
+      this.areaArray.splice(activeAreaIndex, 1);
+      const areaArrayLength = this.areaArray.length;
+      if (areaArrayLength > 0) {
+        const lastArea = this.areaArray[areaArrayLength - 1]
+        lastArea.active = true;
+        this.currentArea = lastArea;
+      }
+      this.reDraw();
+    } else {
+      return;
+    }
   }
 
   submit() {
