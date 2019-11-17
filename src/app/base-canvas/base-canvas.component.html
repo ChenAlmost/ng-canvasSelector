@@ -1,5 +1,5 @@
 <div class="canvas-wrapper">
-  <div>
+  <div class="header">
     <h2>coordiante collection</h2>
     <div *ngFor="let area of areaArray">
       <span *ngFor="let p of area.pointCollection">
@@ -7,12 +7,24 @@
       </span>
     </div>
   </div>
-  <div>
-    <canvas #customCanvas width="800" height="500" style="background: url('/assets/imgs/akita.jpg') 0% 0% / contain;"
-      (mousedown)='onMouseDown($event)' (mousemove)="onmouseMove($event)" (mouseup)='onMouseUp($event)'
-      (contextmenu)='onRightClick($event)'></canvas>
+  <div class="container-video">
+    <video autoplay muted loop width="1000" height="560">
+      <source src="assets/video/High_View_Of_People_Walking_Near_Main_Square_And_Metropolitan_Cathedral_3521E.mp4" type="video/mp4">
+    </video>
   </div>
-  <div>
+  <div class="container-canvas">
+    <canvas  #customCanvas 
+      width="1000"
+      height="560"
+      (mousedown)='onMouseDown($event)' 
+      (mousemove)="onmouseMove($event)"
+      (mouseup)='onMouseUp($event)' 
+      (contextmenu)='onRightClick($event)'></canvas>
+    <!-- <canvas class="custom-canvas" #customCanvas  style="background: url('/assets/imgs/akita.jpg') 0% 0% / contain;"
+      (mousedown)='onMouseDown($event)' (mousemove)="onmouseMove($event)" (mouseup)='onMouseUp($event)'
+      (contextmenu)='onRightClick($event)'></canvas> -->
+  </div>
+  <div class="footer">
     <button (click)="addNewArea()">Add New</button>
     <button (click)="submit()">Submit</button>
     <button (click)="removeCurrent()">remove current</button>

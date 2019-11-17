@@ -14,7 +14,7 @@ interface DragPoint {
 @Component({
   selector: 'app-base-canvas',
   templateUrl: './base-canvas.component.html',
-  styleUrls: ['./base-canvas.component.css']
+  styleUrls: ['./base-canvas.component.scss']
 })
 export class BaseCanvasComponent implements OnInit, AfterViewInit {
   @ViewChild('customCanvas')
@@ -28,7 +28,7 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.context = (<HTMLCanvasElement>this.customCanvas.nativeElement).getContext('2d');
-    this.setDefaultArea();
+    // this.setDefaultArea();
     this.addNewArea();
   }
 
@@ -131,8 +131,6 @@ export class BaseCanvasComponent implements OnInit, AfterViewInit {
   }
 
   drawPath(area: Area) {
-    console.log('draw path invoked....');
-
     if (area.active) {
       const activePoints = area.pointCollection;
       this.drawPoint(activePoints);
