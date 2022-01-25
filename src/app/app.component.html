@@ -1,4 +1,28 @@
-<app-base-canvas></app-base-canvas>
-<!-- <app-rxjs-canvas></app-rxjs-canvas> -->
-
-<!-- <app-grid></app-grid> -->
+<div class="canvas-wrapper">
+    <div class="header">
+        <h2>coordiante collection</h2>
+        <div *ngFor="let area of areaArray">
+            <span *ngFor="let p of area.pointCollection">
+                [{{ p.x }},{{ p.y }}]
+            </span>
+        </div>
+    </div>
+    <div class="container-canvas">
+        <canvas
+            width="1024"
+            height="640"
+            class="custom-canvas"
+            #customCanvas
+            style="background: url('/assets/imgs/akita.jpg') 0% 0% / contain"
+            (mousedown)="onMouseDown($event)"
+            (mousemove)="onmouseMove($event)"
+            (mouseup)="onMouseUp($event)"
+            (contextmenu)="onRightClick($event)"
+        ></canvas>
+    </div>
+    <div class="footer">
+        <button (click)="addNewArea()">Add New</button>
+        <button (click)="submit()">Submit</button>
+        <button (click)="removeCurrent()">remove current</button>
+    </div>
+</div>
